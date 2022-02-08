@@ -16,29 +16,23 @@ show = data['show']
 
 quote_tr = translator.translate(quote, dest='tr').text
 # ACRZeuss
-print(" ")
-print("Orjinal Söz: ", quote)
-print(" ")
-print("Çeviri: ", quote_tr)
-print(" ")
-print("Yapım: ", show)
-print(" ")
+
+print(f"\nOrijinal Söz: {quote}\n\nÇeviri: {quote_tr}\n\nYapım: {show}\n\n")
+
 # ACRZeuss
 ia = imdb.IMDb()
-
-show_name = show
 # ACRZeuss
-show_search = ia.search_movie(show_name)[0]
-
+show_search = ia.search_movie(show)[0]
 fullsize_cover = show_search["full-size cover url"]
 # ACRZeuss
-yes = "evet"
-no = "hayır"
-
-download_poster = input(show_name + " " + "filminin/dizisinin posterini indirmek ister misin? (Evet ya da Hayır): ")
+no = ["evet", "e"]
+download_poster = input(f"{show} filminin/dizisinin posterini indirmek ister misin? (evet/hayır): ")
 # ACRZeuss
-if download_poster.lower() == yes:
-    wget.download(fullsize_cover, show_name + ".jpg")
-if download_poster.lower() == no:
+if download_poster.lower() in no: 
+    print("Poster indirilmedi.")
     exit()
+else:
+    wget.download(fullsize_cover, show + ".jpg")
+    print("Poster indirildi. İndirilmediyse destek için https://github.com/ACRZeuss/film-veya-diziden-replik-cekme/issues adresinde bir issue (hata geribilidirimi) açabilirsiniz.")
+    
 # ACRZeuss
